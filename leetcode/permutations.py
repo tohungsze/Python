@@ -1,4 +1,6 @@
 """Given a collection of distinct integers, return all possible permutations.
+Two methods.
+One does it manually. One uses itertools
 Note:
 will eat up memory if input is long
 """
@@ -8,15 +10,15 @@ def all_perms(elements):
     if len(elements) <=1:
         yield elements
     else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
+        for perm in all_perms(elements[1:]):    # for every char in the input string
+            for i in range(len(elements)):      # build permutation putting first char all slots in rest of string
                 # nb elements[0:1] works in both string and list contexts
-                yield elements[0:1] + perm[:i] + perm[i:]
+                yield  perm[0:i] + elements[0:1] + perm[i:]
 
 
 # test
 result = []
-for i in (all_perms([1, 2, 3])):     # [[1, 2], [2, 1]]
+for i in (all_perms([1, 2, 3, 4])):     # [[1, 2], [2, 1]]
     result.append(i)
 print(result)
 # [
@@ -43,6 +45,6 @@ def permutations(iterable, r=None):
 
 
 result = []
-for i in permutations([1, 2, 3]):
+for i in permutations([1, 2, 3, 4]):
     result.append(i)
 print(result)
