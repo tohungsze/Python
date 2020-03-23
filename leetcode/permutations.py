@@ -11,7 +11,7 @@ def all_perms(elements):
         yield elements
     else:
         for perm in all_perms(elements[1:]):    # for every char in the input string
-            for i in range(len(elements)):      # build permutation putting first char all slots in rest of string
+            for i in range(len(elements)):      # build permutation by putting first char in all slots in rest of string
                 # nb elements[0:1] works in both string and list contexts
                 yield  perm[0:i] + elements[0:1] + perm[i:]
 
