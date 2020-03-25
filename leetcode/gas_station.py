@@ -14,8 +14,7 @@ Each element in the input arrays is a non-negative integer.
 
 def gas_station(gas, cost):
 
-    # try every gas station as starting point
-
+    # helper function to test just one starting point
     def calculate_loop(i):
         tank = 0
         current = i
@@ -33,6 +32,13 @@ def gas_station(gas, cost):
             else:
                 return False
 
+
+    # start of main function
+    # fail quick - if total gas < total cost, definitely can't make a loop no mater where you start
+    if sum(gas) < sum(cost):
+        return "not able to find starting , fail quick"
+
+    # there must be a valid starting point
     for i in range(len(gas)):
         # calculate each loop with i as starting point
             if calculate_loop(i):
