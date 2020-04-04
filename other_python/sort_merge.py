@@ -3,10 +3,16 @@ pseudo codes:
 split the input list into half, left and right
 merge sort left, merge sort right
 merge the two halves
+average: nlog(n)
+worse case: nlog(n)
 """
 
 
 import traceback
+import random
+import time
+
+
 def merge(li, left, right):
     i = 0   # index for left
     j = 0   # index for right
@@ -71,4 +77,54 @@ try:
     merge_sort("dadsd")
 except:
     print("Something went wrong")
+
+# time taken
+x = 1_000_000
+li4 = []
+for i in range(x):
+    li4.append(random.randint(0, x))
+start_time = time.time()
+merge_sort(li4)
+end_time = time.time()
+print(f"time taken to merge sort list of ", len(li4), ":")
+print("{:.2f}".format(end_time - start_time), "sec")
+
+
+def sort_quick_pivot(arr):
+    elements = len(arr)
+
+    # Base case
+    if elements < 2:
+        return arr
+
+    current_position = 0  # Position of the partitioning element
+
+    for i in range(1, elements):  # Partitioning loop
+        if arr[i] <= arr[0]:
+            current_position += 1
+            temp = arr[i]
+            arr[i] = arr[current_position]
+            arr[current_position] = temp
+
+    temp = arr[0]
+    arr[0] = arr[current_position]
+    arr[current_position] = temp  # Brings pivot to it's appropriate position
+
+    left = sort_quick_pivot(arr[0:current_position])  # Sorts the elements to the left of pivot
+    right = sort_quick_pivot(arr[current_position + 1:elements])  # sorts the elements to the right of pivot
+
+    arr = left + [arr[current_position]] + right  # Merging everything together
+
+    return arr
+
+
+x = 1_000_000
+li5 = []
+for i in range(x):
+    li5.append(random.randint(0, x))
+start_time = time.time()
+sort_quick_pivot(li5)
+end_time = time.time()
+print(f"time taken to quick sort list of ", len(li4), ":")
+print("{:.2f}".format(end_time - start_time), "sec")
 
